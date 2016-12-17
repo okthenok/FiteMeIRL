@@ -16,6 +16,12 @@ namespace FiteMeIRL
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Sprite spriteSheet;
+        List<Rectangle> walkingFrames;
+        List<Rectangle> jumpingFrames;
+
+        Fighter falcon;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -25,16 +31,50 @@ namespace FiteMeIRL
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.ApplyChanges();
+            IsMouseVisible = true;
             base.Initialize();
         }
         
+
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            walkingFrames = new List<Rectangle>();
+            jumpingFrames = new List<Rectangle>();
+            spriteSheet = new Sprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White);
+
+            walkingFrames.Add(new Rectangle(128, 208, 92, 112));
+            walkingFrames.Add(new Rectangle(260, 212, 72, 116));
+            walkingFrames.Add(new Rectangle(372, 216, 60, 112));
+            walkingFrames.Add(new Rectangle(12, 328, 56, 116));
+            walkingFrames.Add(new Rectangle(120, 336, 56, 116));
+            walkingFrames.Add(new Rectangle(224, 332, 56, 116));
+            walkingFrames.Add(new Rectangle(320, 336, 56, 112));
+            walkingFrames.Add(new Rectangle(404, 336, 64, 116));
+
+            AnimatedSprite falconWalking = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White, walkingFrames);
+            falconWalking.AnimationTime = new TimeSpan(0, 0, 0, 0, 125);
+
+            jumpingFrames.Add(new Rectangle(8, 452, 60, 124));
+            jumpingFrames.Add(new Rectangle(111, 456, 73, 108));
+            jumpingFrames.Add(new Rectangle(212, 460, 73, 80));
+            jumpingFrames.Add(new Rectangle(316, 460, 84, 97));
+
+            AnimatedSprite falconJumping = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White, jumpingFrames);
+            falconJumping.AnimationTime = new TimeSpan(0, 0, 0, 0, 250);
+
+            Dictionary<FighterState, AnimatedSprite> falconAnimations = new Dictionary<FighterState, AnimatedSprite>();
+            falconAnimations.Add(FighterState.Walking, falconWalking);
+            falconAnimations.Add(FighterState.Jumping, falconJumping);
+
+            falcon = new Fighter(new Vector2(100, 200), Color.White, falconAnimations);
+            falcon.WalkingSpeed = 1.5f;            
         }
 
         protected override void UnloadContent()
@@ -49,6 +89,8 @@ namespace FiteMeIRL
                 this.Exit();
 
             // TODO: Add your update logic here
+            KeyboardState ks = Keyboard.GetState();
+            falcon.Update(gameTime, ks);
 
             base.Update(gameTime);
         }
@@ -58,7 +100,11 @@ namespace FiteMeIRL
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            falcon.Draw(spriteBatch);
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
