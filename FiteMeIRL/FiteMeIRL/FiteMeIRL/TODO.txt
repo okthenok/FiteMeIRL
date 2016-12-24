@@ -1,4 +1,8 @@
 ﻿1)	Single Character on the screen
 	a) Buttons working
 	b) Animations working
-2)ARIA REQUEST: IF YOU DON'T INCLUDE FALCON PUNCH WITH AN EXTREMELY LOUD SOUND, I'M NEVER TALKING TO YOU AGAIN!!!!!
+
+
+2)ARIA REQUEST: IF YOU DON'T INCLUDE FALCON PUNCH WITH AN EXTREMELY LOUD SOUND, YAAAAAS
+
+3) Remake rectangles into FRAMES! with a frame class that accounts for origin per frame (because one of capn' falcn's frames was long and stuff so we have to fix it (uppercut))

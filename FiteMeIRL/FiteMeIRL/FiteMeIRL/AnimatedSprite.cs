@@ -9,10 +9,16 @@ namespace FiteMeIRL
 {
     public class AnimatedSprite : Sprite
     {
-        List<Rectangle> _frames;
+        private List<Rectangle> _frames;
         int currentFrame = 0;
         TimeSpan elapsedGameTime;
         public TimeSpan AnimationTime;
+
+        public List<Rectangle> frames
+        {
+            get { return _frames; }
+            set { _frames = value; }
+        }
 
         public AnimatedSprite(Texture2D texture, Vector2 position, Color color, List<Rectangle> frames)
             :base(texture, position, color)

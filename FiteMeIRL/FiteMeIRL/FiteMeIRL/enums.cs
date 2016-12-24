@@ -8,6 +8,7 @@ namespace FiteMeIRL
     public enum FighterState
     {
         Walking,
-        Jumping
+        Jumping,
+        Uppercut
     }
 }

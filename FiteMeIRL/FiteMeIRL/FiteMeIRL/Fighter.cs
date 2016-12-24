@@ -53,13 +53,21 @@ namespace FiteMeIRL
             else if (ks.IsKeyDown(Keys.W))
             {
                 _animations[FighterState.Jumping].Update(gameTime);
-
-                
                 _currentAnimation = _animations[FighterState.Jumping];
             }
             else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.D))
             {
 
+            }
+            else if (ks.IsKeyDown(Keys.I))
+            {
+                _animations[FighterState.Uppercut].Update(gameTime);
+                _currentAnimation = _animations[FighterState.Uppercut];
+                
+            }
+            else if (ks.IsKeyUp(Keys.I))
+            {
+                _animations[FighterState.Uppercut].ResetAnimation();
             }
             else
             {
