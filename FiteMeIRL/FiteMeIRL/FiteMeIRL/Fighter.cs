@@ -15,6 +15,8 @@ namespace FiteMeIRL
 
         private float _walkingSpeed;
 
+        bool uppercutting;
+
         private AnimatedSprite _currentAnimation;
         Dictionary<FighterState, AnimatedSprite> _animations;
 
@@ -23,6 +25,11 @@ namespace FiteMeIRL
             get { return _walkingSpeed; }
             set { _walkingSpeed = value; }
         }
+        public Vector2 position
+        {
+            get { return _position; }
+        }
+
 
         //TODO Implement Dictionary into the class
         public Fighter(Vector2 position, Color color, Dictionary<FighterState, AnimatedSprite> animations)
@@ -86,7 +93,7 @@ namespace FiteMeIRL
         {
             if (_currentAnimation != null)
             {
-                _currentAnimation.Draw(spriteBatch);
+                _currentAnimation.Draw(spriteBatch, _currentAnimation == _animations[FighterState.Uppercut]);
             }
         }
     }

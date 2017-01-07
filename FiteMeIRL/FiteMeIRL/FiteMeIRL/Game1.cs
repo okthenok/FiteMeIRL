@@ -17,9 +17,9 @@ namespace FiteMeIRL
         SpriteBatch spriteBatch;
 
         Sprite spriteSheet;
-        List<Rectangle> walkingFrames;
-        List<Rectangle> jumpingFrames;
-        List<Rectangle> uppercutFrames;
+        List<Frame> walkingFrames;
+        List<Frame> jumpingFrames;
+        List<Frame> uppercutFrames;
 
         Fighter falcon;
 
@@ -46,38 +46,42 @@ namespace FiteMeIRL
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            walkingFrames = new List<Rectangle>();
-            jumpingFrames = new List<Rectangle>();
-            uppercutFrames = new List<Rectangle>();
+            walkingFrames = new List<Frame>();
+            jumpingFrames = new List<Frame>();
+            uppercutFrames = new List<Frame>();
             spriteSheet = new Sprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White);
 
-            walkingFrames.Add(new Rectangle(128, 208, 92, 112));
-            walkingFrames.Add(new Rectangle(260, 212, 72, 116));
-            walkingFrames.Add(new Rectangle(372, 216, 60, 112));
-            walkingFrames.Add(new Rectangle(12, 328, 56, 116));
-            walkingFrames.Add(new Rectangle(120, 336, 56, 116));
-            walkingFrames.Add(new Rectangle(224, 332, 56, 116));
-            walkingFrames.Add(new Rectangle(320, 336, 56, 112));
-            walkingFrames.Add(new Rectangle(404, 336, 64, 116));
+            walkingFrames.Add(new Frame(128, 208, 92, 112));
+            walkingFrames.Add(new Frame(260, 212, 72, 116));
+            walkingFrames.Add(new Frame(372, 216, 60, 112));
+            walkingFrames.Add(new Frame(12, 328, 56, 116));
+            walkingFrames.Add(new Frame(120, 336, 56, 116));
+            walkingFrames.Add(new Frame(224, 332, 56, 116));
+            walkingFrames.Add(new Frame(320, 336, 56, 112));
+            walkingFrames.Add(new Frame(404, 336, 64, 116));
 
-            AnimatedSprite falconWalking = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White, walkingFrames);
+            AnimatedSprite falconWalking = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc1stHalf"), new Vector2(100, 200), Color.White, walkingFrames, 1.0f);
             falconWalking.AnimationTime = new TimeSpan(0, 0, 0, 0, 125);
 
-            jumpingFrames.Add(new Rectangle(157, 1454, 54, 71));
-            jumpingFrames.Add(new Rectangle(216, 1474, 71, 54));
-            jumpingFrames.Add(new Rectangle(293, 1474, 79, 52));
+            jumpingFrames.Add(new Frame(157, 1454, 54, 71));
+            jumpingFrames.Add(new Frame(216, 1474, 71, 54));
+            jumpingFrames.Add(new Frame(293, 1474, 79, 52));
 
-            AnimatedSprite falconJumping = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc2ndHalf"), new Vector2(100, 200), Color.White, jumpingFrames);
-            falconJumping.AnimationTime = new TimeSpan(0, 0, 0, 0, 200);
+            AnimatedSprite falconJumping = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc2ndHalf"), new Vector2(100, 200), Color.White, jumpingFrames, 1.0f);
+            falconJumping.AnimationTime = new TimeSpan(0, 0, 0, 0, 100);
 
-            uppercutFrames.Add(new Rectangle(248, 12, 88, 80));
-            uppercutFrames.Add(new Rectangle(364, 16, 88, 88));
-            uppercutFrames.Add(new Rectangle(4, 104, 96, 84));
-            uppercutFrames.Add(new Rectangle(127, 108, 93, 100));
-            uppercutFrames.Add(new Rectangle(252, 108, 88, 108));
-            uppercutFrames.Add(new Rectangle(380, 104, 65, 152));
+            uppercutFrames.Add(new Frame(248, 12, 88, 80));
+            uppercutFrames.Add(new Frame(364, 16, 88, 88));
+            uppercutFrames.Add(new Frame(4, 104, 96, 84));
+            uppercutFrames.Add(new Frame(127, 108, 93, 100));
+            uppercutFrames.Add(new Frame(252, 108, 88, 108));
+            uppercutFrames.Add(new Frame(380, 104, 65, 152));
+            uppercutFrames[uppercutFrames.Count - 1].Origin = new Vector2(
+                uppercutFrames[uppercutFrames.Count - 1].Origin.X, 
+                uppercutFrames[uppercutFrames.Count - 1].Hitbox.Y - uppercutFrames[uppercutFrames.Count-1].Hitbox.Height/ 2);
 
-            AnimatedSprite falconUppercut = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc3rdHalf"), new Vector2(100, 200), Color.White, uppercutFrames);
+            AnimatedSprite falconUppercut = new AnimatedSprite(Content.Load<Texture2D>("CaptFalc3rdHalf"), new Vector2(100, 200), Color.White, uppercutFrames, 1.0f);
+
             falconUppercut.AnimationTime = new TimeSpan(0, 0, 0, 0, 200);
 
             Dictionary<FighterState, AnimatedSprite> falconAnimations = new Dictionary<FighterState, AnimatedSprite>();
